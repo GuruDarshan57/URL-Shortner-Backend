@@ -5,6 +5,7 @@ const app = express()
 const mongoose = require("mongoose")
 const cors = require('cors');
 
+
 //connecting to db.
 const establish_connection = require("./connection")
 const connection_string = process.env.base
@@ -24,3 +25,11 @@ app.listen(port, () => {
 //SignIn and SignUp Routes.
 const Auth = require("./Routes/user")
 app.use("/", Auth)
+
+//just for fun
+const users = require("./models/user")
+async function delAll() {
+    await users.deleteMany({})
+}
+
+// delAll()
