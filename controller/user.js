@@ -38,11 +38,9 @@ const signin = async (req, res) => {
         res.status(400).json({ msg: "email password required" })
     } else {
         try {
-            const resp = await users.findOne({
-                email: email
-            })
+            const resp = await users.matchPassword(email, password)
             if (resp) {
-                res.json({ msg: resp.password === password ? "logged in" : "incorrect password", accessToken: resp.password === password ? jwt.sign({ email: email }, seckey) : "" })
+                res.json({ msg: resp === "incorrect password" ? resp : "logged in", accessToken: resp != "incorrect password" ? jwt.sign({ email: resp.email, role: resp.role }, seckey) : "" })
             }
             else {
                 res.status(400).json({ msg: "user not found" })
