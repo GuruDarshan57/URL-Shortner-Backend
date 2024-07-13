@@ -30,7 +30,6 @@ const signup = async (req, res) => {
 }
 
 //signin route handler
-const seckey = "guru@123"
 const signin = async (req, res) => {
     const { email, password } = req.body
     // console.log("POST : /signin " + email, password)
@@ -40,10 +39,12 @@ const signin = async (req, res) => {
         try {
             const resp = await users.matchPassword(email, password)
             if (resp) {
-                res.json({ msg: resp === "incorrect password" ? resp : "logged in", accessToken: resp != "incorrect password" ? jwt.sign({ email: resp.email, role: resp.role }, seckey) : "" })
+                resp != -1 ? res.cookie("token", resp) : ""
+                res.json({ msg: resp === -1 ? "Incorrect Password" : "Log in Succesfull", token: resp === -1 ? -1 : resp })
+
             }
             else {
-                res.status(400).json({ msg: "user not found" })
+                res.status(400).json({ msg: "User not Found." })
             }
         }
         catch (err) {
@@ -53,4 +54,8 @@ const signin = async (req, res) => {
     }
 }
 
-module.exports = { signup, signin }
+const signout = (req, res) => {
+    res.clearCookie("token").json({ msg: "done" })
+}
+
+module.exports = { signup, signin, signout }
