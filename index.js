@@ -4,7 +4,9 @@ const express = require("express")
 const app = express()
 const mongoose = require("mongoose")
 const cors = require("cors")
+const cookieparser = require("cookie-parser")
 
+const { authentication } = require("./middlewares/middlewares")
 
 const corsOptions = {
     origin: 'http://localhost:5173',
@@ -23,6 +25,8 @@ catch (err) { console.log(" DB conection error : " + err.message) }
 //middlewares
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
+app.use(cookieparser())
+app.use(authentication)
 // app.use(cors())
 
 const port = process.env.PORT || 3000
@@ -32,5 +36,9 @@ app.listen(port, () => {
 
 //SignIn and SignUp Routes.
 const Auth = require("./routes/user")
-app.use("/", Auth)
+app.use("/user", Auth)
 
+//Short URL Routes
+const S_URL = require("./routes/s_url")
+const { authorize } = require("./middlewares/middlewares")
+app.use("/s_url", authorize(["Admin"]), S_URL)

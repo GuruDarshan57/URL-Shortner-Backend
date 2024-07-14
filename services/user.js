@@ -16,4 +16,16 @@ const createToken = (user) => {
     return token
 }
 
-module.exports = { createToken }
+//Function to verify token
+const verifyToken = (token) => {
+    try {
+        const resp = jwt.verify(token, process.env.secKey)
+        return resp;
+    }
+    catch (err) {
+        console.log(err.message)
+        return -1;
+    }
+}
+
+module.exports = { createToken, verifyToken }
