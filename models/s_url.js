@@ -17,7 +17,7 @@ const schema = new mongoose.Schema({
         requried: true
     },
     createdBy: {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         requried: true
     },
     history: {
