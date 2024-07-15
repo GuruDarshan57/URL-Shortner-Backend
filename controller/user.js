@@ -15,15 +15,15 @@ const signup = async (req, res) => {
             const resp = await users.create({
                 username: username, email: email, password: password
             })
-            res.json({ msg: "created" })
+            res.status(200).json({ msg: "SignUp Successfull" })
         }
         catch (err) {
             if (err.code === 11000) {
                 console.error("User already present." + err.message);
-                res.status(400).json({ msg: "duplicate" })
+                res.status(400).json({ msg: "User exsists please SignIn" })
             } else {
                 console.error("Error inserting document:", err.message);
-                res.status(500).json({ msg: "error" })
+                res.status(500).json({ msg: "Try again" })
             }
         }
     }
@@ -39,8 +39,12 @@ const signin = async (req, res) => {
         try {
             const resp = await users.matchPassword(email, password)
             if (resp) {
-                resp != -1 ? res.cookie("token", resp) : ""
-                res.json({ msg: resp === -1 ? "Incorrect Password" : "Log in Succesfull", token: resp === -1 ? -1 : resp })
+                if (resp != -1) {
+                    res.cookie("token", resp).json({ msg: "Log in Succesfull", token: resp })
+                }
+                else {
+                    res.status(400).json({ msg: "Incorrect Password" })
+                }
 
             }
             else {
@@ -49,7 +53,7 @@ const signin = async (req, res) => {
         }
         catch (err) {
             console.error("Error", err.message);
-            res.status(500).json({ msg: "error" })
+            res.status(500).json({ msg: "Try again" })
         }
     }
 }

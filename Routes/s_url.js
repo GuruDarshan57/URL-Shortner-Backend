@@ -18,9 +18,10 @@ Router.route("/generate").post(async (req, res) => {
             name: name,
             createdBy: req.user.uid
         })
-        res.json({ masg: s_id })
+        res.json({ msg: "su" })
     } catch (err) {
         console.log(err.message)
+        res.json({ msg: "try again" })
     }
 })
 

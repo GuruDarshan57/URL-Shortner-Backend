@@ -18,11 +18,11 @@ const authorize = (auth_list) => {
                 next()
             }
             else {
-                res.status(400).json({ msg: "Permission denied" })
+                res.status(400).json({ msg: "Invalid credentials" })
             }
         }
         else {
-            res.status(400).json({ msg: "pls log in" })
+            res.status(400).json({ msg: "Please SignIn to Use" })
         }
     }
 }
