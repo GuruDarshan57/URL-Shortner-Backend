@@ -6,6 +6,7 @@ const redirectToOriginal = async (req, res) => {
         const s_id = req.params.id
         const resp = await s_url.findOne({ short_id: s_id }, { url: 1 })
         if (resp) {
+            await s_url.updateOne({ short_id: s_id }, { $push: { history: new Date().toString().slice(0, 24) } })
             res.redirect(resp.url)
         }
         else {
@@ -13,6 +14,7 @@ const redirectToOriginal = async (req, res) => {
         }
     } catch (err) {
         console.log(err.message)
+        res.status(500).json({ msg: "Try again" })
     }
 }
 
