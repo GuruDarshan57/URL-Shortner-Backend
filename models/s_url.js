@@ -1,5 +1,7 @@
 const { default: mongoose } = require("mongoose");
 
+const user = require("./user")
+
 //schema for user collection
 const schema = new mongoose.Schema({
     url: {
@@ -18,17 +20,18 @@ const schema = new mongoose.Schema({
     },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: user,
         requried: true
     },
-    history: {
-        type: Array,
-        default: [String]
+    clicks: {
+        type: Number,
+        default: 0
     }
 }, { timestamps: true })
 
 
 
-const s_url = mongoose.model("s-url", schema)
+const s_url = mongoose.model("s_url", schema)
 
 // async function delAll() {
 //     await s_url.deleteMany()

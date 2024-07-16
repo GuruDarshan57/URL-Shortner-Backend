@@ -31,4 +31,22 @@ const getRecent = async (req, res) => {
     }
 }
 
-module.exports = { genrateSurl, getRecent }
+//to get toatal url's created by user,total clicks and most clicks for a single url
+const analytics = async (req, res) => {
+    try {
+        const userId = req.user.uid
+        const resp = await s_url.find({ createdBy: userId }, { url: 1, name: 1, short_id: 1, clicks: 1 }).sort({ clicks: -1 })
+        const totalUrls = resp.length
+        let totalClicks = 0
+        resp.forEach((ele, index) => {
+            clicks = ele.clicks
+            totalClicks += clicks;
+        })
+        res.json({ urls: totalUrls, clicks: totalClicks, most_clicks: resp[0].clicks, url_data: resp })
+
+    } catch (err) {
+        console.log(err.message)
+    }
+}
+
+module.exports = { genrateSurl, getRecent, analytics }
