@@ -40,7 +40,8 @@ const signin = async (req, res) => {
             const resp = await users.matchPassword(email, password)
             if (resp) {
                 if (resp != -1) {
-                    res.cookie("token", resp).json({ msg: "Log in Succesfull", token: resp })
+                    const options = { secure: true, sameSite: 'none', httpOnly: true, };
+                    res.cookie("token", resp, options).json({ msg: "Log in Succesfull", token: resp })
                 }
                 else {
                     res.status(400).json({ msg: "Incorrect Password" })
