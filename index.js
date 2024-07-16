@@ -9,7 +9,7 @@ const cookieparser = require("cookie-parser")
 const { authentication } = require("./middlewares/middlewares")
 
 const corsOptions = {
-    origin: 'http://localhost:5173',
+    origin: process.env.frontend_url,
     credentials: true
 };
 

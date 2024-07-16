@@ -37,12 +37,17 @@ const analytics = async (req, res) => {
         const userId = req.user.uid
         const resp = await s_url.find({ createdBy: userId }, { url: 1, name: 1, short_id: 1, clicks: 1 }).sort({ clicks: -1 })
         const totalUrls = resp.length
-        let totalClicks = 0
-        resp.forEach((ele, index) => {
-            clicks = ele.clicks
-            totalClicks += clicks;
-        })
-        res.json({ urls: totalUrls, clicks: totalClicks, most_clicks: resp[0].clicks, url_data: resp })
+        if (resp.length > 0) {
+            let totalClicks = 0
+            resp.forEach((ele, index) => {
+                clicks = ele.clicks
+                totalClicks += clicks;
+            })
+            res.json({ urls: totalUrls, clicks: totalClicks, most_clicks: resp[0].clicks, url_data: resp })
+        }
+        else {
+            res.json({ msg: "No data to perform analytics" })
+        }
 
     } catch (err) {
         console.log(err.message)
