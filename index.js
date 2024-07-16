@@ -42,3 +42,7 @@ app.use("/user", Auth)
 const S_URL = require("./routes/s_url")
 const { authorize } = require("./middlewares/middlewares")
 app.use("/s_url", authorize(["User", "Admin"]), S_URL)
+
+//Short URL Redirection to Original URL
+const shorturl = require("./routes/shorturl")
+app.use("/shorturl", shorturl)
