@@ -40,7 +40,7 @@ const signin = async (req, res) => {
             const resp = await users.matchPassword(email, password)
             if (resp) {
                 if (resp != -1) {
-                    const options = { secure: true, sameSite: 'none', httpOnly: true, };
+                    const options = { secure: true, sameSite: 'none', httpOnly: true, maxAge: 24 * 60 * 60 * 1000 };
                     res.cookie("token", resp, options).json({ msg: "Log in Succesfull", token: resp })
                 }
                 else {
