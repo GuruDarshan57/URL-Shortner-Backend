@@ -9,8 +9,10 @@ const createToken = (user) => {
         uid: user._id,
         name: user.username,
         email: user.email,
-        role: user.role
+        role: user.role,
+        expiry: Date.now() + (2 * 24 * 60 * 60 * 1000)
     }
+    console.log(payload.expiry)
     const token = jwt.sign(payload, secKey)
 
     return token
