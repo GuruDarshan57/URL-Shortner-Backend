@@ -12,7 +12,6 @@ const createToken = (user) => {
         role: user.role,
         expiry: Date.now() + (2 * 24 * 60 * 60 * 1000)
     }
-    console.log(payload.expiry)
     const token = jwt.sign(payload, secKey)
 
     return token
@@ -21,8 +20,10 @@ const createToken = (user) => {
 //Function to verify token
 const verifyToken = (token) => {
     try {
-        const resp = jwt.verify(token, process.env.secKey)
-        return resp;
+        if (token) {
+            const resp = jwt.verify(token, process.env.secKey)
+            return resp;
+        }
     }
     catch (err) {
         console.log(err.message)
