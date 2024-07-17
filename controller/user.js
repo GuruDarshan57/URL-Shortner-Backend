@@ -61,8 +61,7 @@ const signin = async (req, res) => {
 
 const signout = (req, res) => {
     const options = { secure: true, sameSite: 'none', httpOnly: true }
-    res.clearCookie("token")
-    res.json({ msg: "done" })
+    res.clearCookie("token", options).json({ msg: "done" })
 }
 
 module.exports = { signup, signin, signout }
