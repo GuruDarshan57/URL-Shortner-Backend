@@ -45,4 +45,4 @@ app.use("/s_url", authorize(["User", "Admin"]), S_URL)
 
 //Short URL Redirection to Original URL
 const shorturl = require("./routes/shorturl")
-app.use("/shorturl", shorturl)
+app.use("/", shorturl)
