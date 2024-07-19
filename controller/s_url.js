@@ -54,4 +54,17 @@ const analytics = async (req, res) => {
     }
 }
 
-module.exports = { genrateSurl, getRecent, analytics }
+//delete a Short URL
+const deletSurl = async (req, res) => {
+    try {
+        const id = req.body.id
+        const resp = await s_url.deleteOne({ _id: id })
+        resp.acknowledged == true ? res.json({ msg: "Deleted Succesfully" }) : res.status(500).json({ msg: "Try again" })
+    }
+    catch (err) {
+        console.log(err.message)
+        res.status(500).json({ msg: "Try again" })
+    }
+}
+
+module.exports = { genrateSurl, getRecent, analytics, deletSurl }
