@@ -4,6 +4,7 @@ const { nanoid } = require("nanoid")
 //Short URL Model
 const s_url = require("../models/s_url")
 
+//creates a short url
 const genrateSurl = async (req, res) => {
     try {
         const { l_url, name } = req.body
@@ -18,6 +19,13 @@ const genrateSurl = async (req, res) => {
     } catch (err) {
         console.log(err.message)
         res.json({ msg: "try again" })
+        if (err.code === 11000) {
+            console.error("URL already present." + err.message);
+            res.status(400).json({ msg: "URL exists." })
+        } else {
+            console.log(err.message)
+            res.status(500).json({ msg: "try again" })
+        }
     }
 }
 
@@ -43,6 +51,7 @@ const analytics = async (req, res) => {
                 clicks = ele.clicks
                 totalClicks += clicks;
             })
+
             res.json({ urls: totalUrls, clicks: totalClicks, most_clicks: resp[0].clicks, url_data: resp })
         }
         else {

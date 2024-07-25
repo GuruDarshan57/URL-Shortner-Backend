@@ -22,7 +22,7 @@ const signup = async (req, res) => {
                 console.error("User already present." + err.message);
                 res.status(400).json({ msg: "User exsists please SignIn" })
             } else {
-                console.error("Error inserting document:", err.message);
+                console.log(err.message)
                 res.status(500).json({ msg: "Try again" })
             }
         }
