@@ -19,6 +19,9 @@ The frontend for this project is available [here](https://github.com/GuruDarshan
 - MongoDB
 - JWT
 
+![Short URL (1)](https://github.com/user-attachments/assets/3e6e42ce-a165-471f-8ed2-697e5f238c57)
+
+
 ## Getting Started
 
 1. Clone the repository:
@@ -34,4 +37,3 @@ The frontend for this project is available [here](https://github.com/GuruDarshan
     ```bash
     npm run dev
     ```
-
