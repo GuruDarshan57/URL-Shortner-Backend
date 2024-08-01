@@ -33,9 +33,7 @@ const genrateSurl = async (req, res) => {
 const getRecent = async (req, res) => {
     try {
         const resp = await s_url.find({ createdBy: req.user.uid }, { url: 1, short_id: 1, name: 1 }).sort({ createdAt: -1 }).limit(5)
-        setTimeout(() => {
-            res.json({ data: resp })
-        }, 10000);
+        res.json({ data: resp })
     } catch (err) {
         console.log(err.message)
     }
@@ -54,9 +52,7 @@ const analytics = async (req, res) => {
                 totalClicks += clicks;
             })
 
-            setTimeout(() => {
-                res.json({ urls: totalUrls, clicks: totalClicks, most_clicks: resp[0].clicks, url_data: resp })
-            }, 11000);
+            res.json({ urls: totalUrls, clicks: totalClicks, most_clicks: resp[0].clicks, url_data: resp })
         }
         else {
             res.json({ msg: "No data to perform analytics" })
