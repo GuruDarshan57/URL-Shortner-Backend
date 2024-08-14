@@ -37,3 +37,4 @@ The frontend for this project is available [here](https://github.com/GuruDarshan
     ```bash
     npm run dev
     ```
+4. Rename .env-template as .env and replace with suitable values.
