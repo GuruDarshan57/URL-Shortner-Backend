@@ -34,6 +34,11 @@ app.listen(port, () => {
     console.log(`Server started at Port ${port}.`)
 })
 
+app.get("/", (req, res) => {
+    res.send("<h1 style='color:green'>Server is up and running</h1>")
+})
+
+
 //SignIn and SignUp Routes.
 const Auth = require("./routes/user")
 app.use("/user", Auth)
