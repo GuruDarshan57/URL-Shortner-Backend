@@ -8,13 +8,7 @@ const cookieparser = require("cookie-parser")
 
 const { authentication } = require("./middlewares/middlewares")
 
-const corsOptions = {
-    origin: process.env.frontend_url,
-    credentials: true
-};
-
-app.use(cors(corsOptions));
-
+app.use(cors());
 
 //connecting to db.
 const establish_connection = require("./connection")
